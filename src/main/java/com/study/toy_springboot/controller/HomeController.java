@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
-    @GetMapping({"", "/"})
+    @GetMapping({"","/"})
     public ModelAndView  home(ModelAndView modelAndView){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
