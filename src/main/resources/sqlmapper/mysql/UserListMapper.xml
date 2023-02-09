@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserList">
+    <!-- call UserList.selectFromUsers -->
+    <select id="selectFromUsers" parameterType="Map" resultType="Map">
+    SELECT * 
+    FROM USERS
+    <if test="pageScale != null">
+    ORDER BY EMAIL
+    LIMIT #{pageBegin}, #{pageScale} 
+    </if> 
+    </select>
+
+        <!-- call UserList.selectByUID -->
+    <select id="selectByUID" parameterType="Map" resultType="Map">
+    SELECT * 
+    FROM USERS
+    WHERE USER_ID = #{USER_ID}
+    </select>
+
+    <!-- call UserList.selectTotal -->
+    <select id="selectTotal" parameterType="Map" resultType="Int">
+    SELECT COUNT(*) as cnt 
+    FROM USERS
+    </select>
+
+    <!-- call UserList.updateByUID -->
+    <update id="updateByUID" parameterType="Map">
+        UPDATE USERS
+        SET EMAIL = #{EMAIL},
+        PASSWORD = #{PASSWORD},
+        FRIST_NAME=#{FRIST_NAME},
+        LAST_NAME=#{LAST_NAME},
+        TITLE_OF_HONOR=#{TITLE_OF_HONOR},
+        BIRTHDAY=#{BIRTHDAY},
+        COUNTRY=#{COUNTRY},
+        STATE=#{STATE},
+        CITY=#{CITY},
+        ADDRESS =#{ADDRESS}
+        WHERE USER_ID = #{USER_ID}
+    </update>
+
+    <!-- call UserList.insertWithUID -->
+    <insert id="insertWithUID" parameterType="Map">
+    INSERT INTO USERS (USER_ID,EMAIL, PASSWORD, FRIST_NAME, LAST_NAME, TITLE_OF_HONOR, BIRTHDAY, COUNTRY, STATE, CITY, ADDRESS)
+    VALUE ( #{USER_ID}, #{EMAIL},#{PASSWORD},#{FRIST_NAME},#{LAST_NAME},#{TITLE_OF_HONOR},#{BIRTHDAY},#{COUNTRY},#{STATE},#{CITY},#{ADDRESS})
+    </insert>
+
+        <!-- call UserList.deleteByUID -->
+    <delete id="deleteByUID" parameterType="Map">
+SET FOREIGN_KEY_CHECKS = 0;
+DELETE FROM USERS
+WHERE USER_ID = #{USER_ID};
+SET FOREIGN_KEY_CHECKS = 1;
+    </delete>
+
+</mapper>
